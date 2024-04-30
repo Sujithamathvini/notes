@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Lets Code Bro</h1>
+    <button id="Start1">Start</button>
+    <button id="Stop1">Stop</button>
+    <button id="Start2">Start2</button>
+    <button id="Stop2">Stop2</button>
+    <button id="BgStart">BgStart</button>
+    <button id="BgStop">BgStop</button>
+</body>
+<script>
+    const change = () => {
+        document.querySelector('h1').innerHTML="Lets drink chai bro :)"
+    }
+    // setTimeout,clearTimeout
+    let changes
+    document.querySelector('#Start1').addEventListener('click',()=>{
+        changes = setTimeout(change,2000)
+        console.log("Started")
+    })
+    document.querySelector('#Stop1').addEventListener('click',()=>{
+        clearTimeout(changes)
+        console.log("Stopped")
+    })
+
+    // setInterval,clearInterval
+    const print = (str) => {
+        console.log(str+" heloo")
+    }
+    let prints
+    document.querySelector('#Start2').addEventListener('click',()=>{
+        prints = setInterval(print,1000,"hi")
+        console.log("Started2")
+    })
+    document.querySelector('#Stop2').addEventListener("click",()=>{
+        clearInterval(prints)
+        console.log("Stopped2")
+    })
+
+    // generate random color
+    const randomColor = () => {
+        const hex = "01234456789ABCDEF"
+        let color = "#"
+        for(let i = 0; i<6; i++){
+            color += hex[Math.floor(Math.random() * 16)]
+        }
+        return color // the reason for 'return color' mentioned below
+        // if u dont return the 'color' variable then when printing 'randomColor()' we'll get 'undefined' as output, bcz we have not stored anything the in 'randomColor' variable
+    }
+
+    let setIntervalId
+    const StartColorChanging = () => {
+        function backgroundColorChanger(){
+            document.body.style.backgroundColor = randomColor()
+        }
+        if (!setIntervalId){
+            setIntervalId = setInterval(backgroundColorChanger,1000)
+        }
+    }
+    const StopColorChanging = () => {
+        clearInterval(setIntervalId)
+        setIntervalId = null
+    }
+
+    document.querySelector('#BgStart').addEventListener('click',StartColorChanging)
+    document.querySelector('#BgStop').addEventListener('click',StopColorChanging)
+</script>
+</html>

@@ -1,0 +1,73 @@
+* ✅ async await
+- code :
+example 1 :
+const p1 = new Promise((resolve,reject) => {
+    const flag = true
+    if(flag){
+        resolve({username : "suji", password : "123"})
+    }
+    else{
+        reject("ERROR : Something went wrong !!")
+    }
+})
+async function promiseOne() {
+    const response = await p1
+    console.log(response)
+}
+
+
+// if we face any error then this async-await can't handle that error.
+// In order to handle the error we use try-catch block
+
+* ✅ try & catch
+- code :
+example 1 :
+const p1 = new Promise((resolve,reject) => {
+    const flag = true
+    if(flag){
+        resolve({username : "suji", password : "123"})
+    }
+    else{
+        reject("ERROR : Something went wrong !!")
+    }
+})
+async function abcd(){
+    try{
+        const response = await p1
+        console.log(response)
+    }
+    catch(err){
+        console.log("something went wrong")
+        console.log(err)
+    }
+}
+abcd()
+
+* ✅ fetch - with simple async-await
+example 1 :
+async function abcd(){
+    constant response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+    constant data = await response.json()
+    // we are changing the input into a json type and this is also an async code
+    console.log(data)
+}
+abcd()
+
+// if we face any error then this async-await can't handle that error.
+// In order to handle the error we use try-catch block
+
+* ✅ fetch - with async-await and try&catch
+- code :
+example 1 :
+async function abcd(){
+    try{
+        constant response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+        constant data = await response.json()
+        console.log(data)
+    }
+    catch(err){
+        console.log("something went wrong")
+        console.log(err)
+    }
+}
+abcd()

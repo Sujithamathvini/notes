@@ -1,0 +1,97 @@
+* Javascript - Synchronous &  single threaded
+* ✅ sync vs async
+- sync : a task runs after another task finishes its work. executes one task at a time.
+- async : all the tasks starts together and finishes at their own time. exectues multiple task at a time.
+- example :
+task 1 - 5          total time to finish these 5 tasks
+task 2 - 2          sync : 38
+task 3 - 10         async : 15
+task 4 - 15
+task 5 - 6
+- a code is said async if it has the following :
+setTimeout
+setInterval
+promises
+fetch
+axios
+XMLHttpRequest
+
+
+* ✅ async js
+- js is not async, js is single thread
+- in js there is Main Stack (MS) and Side Stack (SS)
+- example :                           explanation :
+console.log("h1") //sync              MS : h1,h2,h4 (exectues MS 1st, after that goes to SS)                                output : h1 h2 h4
+console.log("h2") //sync              SS : h3 (checks if SS finished, if finished then this h3 goes to MS and exectues)     output : h1 h2 h4 h3
+setTimeout(function(){ // async
+    console.log("h3")
+},0)
+console.log("h4") //sync
+- the checking that happens between Main Stack and Side Stack is "Event loop"
+
+* ✅ go to promises folder and then async folder
+
+* ✅ single threading & multi threading
+* ✅ callbacks - its a function that is executed after it parent function finishes its execution. and this is sent as an argument to the another function
+
+
+* ✅ 5 usecases
+
+* [concept aside]
+* concurrency & parallelism
+* throttling
+
+* ✅ callback, promises, async wait (understand in one go)
+- problem statement :
+var datas = [
+    {name:"suji", job:"IT"},
+    {name:"anuj", job:"IT"}
+]
+
+function getData(){
+    setTimeout(()=>{
+        let output ="";
+        datas.forEach((data,name)=>{
+            output+='<li>$(data.name)</li>'
+        })
+        document.body.innerHTML=output
+    },1000)
+}
+
+function createData(newData){
+    setTimeout(()=>{
+        datas.push(newData)
+    },2000)
+}
+
+createData({name:"raju", job:"IT"})
+getData()
+
+// 1st createData is called then getData, so we expect the output : -suji -anuj -raju
+// but we get output : -suji -anuj
+// problem : bcz, the 'createData()' takes 2s and 'getData()' takes 1s. So the 'getData()' will be executed fast and the output is : -suji -anuj
+
+- callback :
+// to resolve the above problem we use callbacks (callbacks-is a func that is sent as an argument to another function)
+var datas = [
+    {name:"suji", job:"IT"},
+    {name:"anuj", job:"IT"}
+]
+
+function getData(){
+    setTimeout(()=>{
+        let output ="";
+        datas.forEach((data,name)=>{
+            output+='<li>$(data.name)</li>'
+        })
+        document.body.innerHTML=output
+    },1000)
+}
+
+function createData(){
+    setTimeout((newData)=>{
+        datas.push(newData)
+    },2000)
+}
+
+createData({name:"raju", job:"IT"},getData)
